@@ -5,4 +5,11 @@ sameEnds([5, 6, 45, 99, 13, 5, 6], 1) → false
 sameEnds([5, 6, 45, 99, 13, 5, 6], 2) → true
 sameEnds([5, 6, 45, 99, 13, 5, 6], 3) → false
 */
-
+public boolean sameEnds(int[] nums, int len) {
+    for(int i = 0; i < len; i++){
+      if(nums[i] != nums[nums.length - len + i]) {
+        return false;
+      }
+    }
+    return true;
+  }
