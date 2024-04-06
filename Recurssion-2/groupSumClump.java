@@ -6,17 +6,37 @@ groupSumClump(0, [1, 2, 4, 8, 1], 14) → true
 groupSumClump(0, [2, 4, 4, 8], 14) → false
 */
 
+// public boolean groupSumClump(int start, int[] nums, int target) {
+//   if(start >= nums.length) {
+//     return target == 0;
+//   }
+//   int idx = start;
+//   int sum = 0;
+//   while(idx < nums.length && nums[idx] == nums[start]) {
+//     sum += nums[idx++];
+//   }
+//   boolean inc = groupSumClump(idx, nums, target - sum);
+  
+//   boolean exc = groupSumClump(idx, nums, target);
+//   return inc || exc;
+// }
+
 public boolean groupSumClump(int start, int[] nums, int target) {
   if(start >= nums.length) {
     return target == 0;
   }
-  int idx = start;
-  int sum = 0;
-  while(idx < nums.length && nums[idx] == nums[start]) {
-    sum += nums[idx++];
-  }
-  boolean inc = groupSumClump(idx, nums, target - sum);
   
-  boolean exc = groupSumClump(idx, nums, target);
+  int count = countIdentical(start, nums);
+  int sum = nums[start] * count;
+  
+  boolean inc = groupSumClump(start + count, nums, target - sum);
+  boolean exc = groupSumClump(start + count, nums, target);
   return inc || exc;
+}
+
+private int countIdentical(int start, int[] nums) {
+  if(start + 1 >= nums.length || nums[start] != nums[start + 1]) {
+    return 1;
+  }
+  return 1 + countIdentical(start + 1, nums);
 }
